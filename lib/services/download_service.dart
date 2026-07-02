@@ -2,26 +2,15 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DownloadService {
-  get FlutterDownloader => null;
-
   Future<String?> downloadSong(
       String url,
       String fileName) async {
     final directory =
         await getApplicationDocumentsDirectory();
 
-FlutterDownloader.registerCallback(
-  downloadCallback,
-);
-
-@pragma('vm:entry-point')
-void downloadCallback(
-  String id,
-  DownloadTaskStatus status,
-  int progress,
-) {
-  print(progress);
-}
+    await FlutterDownloader.registerCallback(
+      downloadCallback,
+    );
 
     return await FlutterDownloader.enqueue(
       url: url,
@@ -31,7 +20,7 @@ void downloadCallback(
       openFileFromNotification: true,
     );
   }
-*-
+
   Future<void> deleteDownload(
       String taskId) async {
     await FlutterDownloader.remove(
@@ -41,5 +30,21 @@ void downloadCallback(
   }
 }
 
+@pragma('vm:entry-point')
+void downloadCallback(
+  String id,
+  DownloadTaskStatus status,
+  int progress,
+) {
+  print('Download Progress: $progress%');
+}
+
 class DownloadTaskStatus {
+  static const int undefined = 0;
+  static const int enqueued = 1;
+  static const int running = 2;
+  static const int complete = 3;
+  static const int failed = 4;
+  static const int cancelled = 5;
+  static const int paused = 6;
 }
