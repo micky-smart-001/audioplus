@@ -9,6 +9,8 @@ class UserModel {
   final int uploadsCount;
   final int playlistsCount;
   final int favoritesCount;
+  final bool isPremium;
+  final String subscriptionPlan;
 
   UserModel({
     required this.uid,
@@ -21,6 +23,8 @@ class UserModel {
     required this.uploadsCount,
     required this.playlistsCount,
     required this.favoritesCount,
+    this.isPremium = false,
+    this.subscriptionPlan = 'free',
   });
 
   factory UserModel.fromMap(
@@ -43,6 +47,8 @@ class UserModel {
           map['playlistsCount'] ?? 0,
       favoritesCount:
           map['favoritesCount'] ?? 0,
+      isPremium: map['isPremium'] ?? false,
+      subscriptionPlan: map['subscriptionPlan'] ?? 'free',
     );
   }
 
@@ -62,14 +68,8 @@ class UserModel {
           playlistsCount,
       'favoritesCount':
           favoritesCount,
+      'isPremium': isPremium,
+      'subscriptionPlan': subscriptionPlan,
     };
   }
-
-  final bool isPremium;
-final String subscriptionPlan;
-
-UserModel({
-  required this.isPremium,
-  required this.subscriptionPlan,
-});
 }
