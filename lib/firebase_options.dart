@@ -1,9 +1,15 @@
-class DefaultFirebase_Options {
-  static FirebaseOptions get currentPlatform {
+import 'package:firebase_core/firebase_core.dart';
 
-// import 'firebase_options.dart';
-// await Firebase.initializeApp(
-// options:
-DefaultFirebaseOptions.currentPlatform,// );
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    return FirebaseOptions(
+      apiKey: 'YOUR_API_KEY',
+      appId: 'YOUR_APP_ID',
+      messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+      projectId: 'YOUR_PROJECT_ID',
+      storageBucket: 'YOUR_STORAGE_BUCKET',
+      iosBundleId: 'YOUR_IOS_BUNDLE_ID',
+      androidPackageName: 'com.audioplus.app',
+    );
   }
 }
