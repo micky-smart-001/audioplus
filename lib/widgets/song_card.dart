@@ -42,7 +42,6 @@ class SongCard extends StatelessWidget {
           ),
           Text(artist),
         ],
-        
       ),
     );
   }
