@@ -1,176 +1,42 @@
-import 'package:provider/provider.dart';
-import 'services/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'firebase_options.dart';
 import 'app.dart';
+import 'services/auth_provider.dart';
+import 'providers/player_provider.dart';
+import 'providers/search_provider.dart';
+import 'providers/playlist_provider.dart';
+import 'providers/favorite_provider.dart';
+import 'providers/download_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Flutter Downloader
+  await FlutterDownloader.initialize(debug: true);
 
-  await FlutterDownloader.initialize(
-    debug: true,
-  );
-
-  await Firebase.initializeApp(
-    options:
-        DefaultFirebaseOptions
-            .currentPlatform,
-  );
-
-  runApp(const AudioPlusApp());
-}
+  // Initialize Google Mobile Ads
+  await MobileAds.instance.initialize();
 
   runApp(
-  ChangeNotifierProvider(
-    create: (_) => AuthProvider(),
-    child: const AudioPlusApp(),
-
-    runApp(
-  MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (_) =>
-            AuthProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) =>
-            PlayerProvider(),
-      ),
-      ChangeNotifierProvider(
-  create: (_) =>
-      SearchProvider(),
-),
-ChangeNotifierProvider(
-  create: (_) =>
-      PlaylistProvider(),
-),
-ChangeNotifierProvider(
-  create: (_) =>
-      FavoriteProvider(),
-),
-ChangeNotifierProvider(
-  create: (_) =>
-      DownloadProvider(),
-),
-    ],
-    child: const AudioPlusApp(),
-  ),
-);
-  ),
-);
-
-if (!user.isPremium) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) =>
-          const SubscriptionScreen(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PlayerProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
+        ChangeNotifierProvider(create: (_) => PlaylistProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => DownloadProvider()),
+      ],
+      child: const AudioPlusApp(),
     ),
   );
-}
-void main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized();
-
-  await MobileAds.instance
-      .initialize();
-
-  runApp(
-    const AudioPlusApp(),
-  );
-}
-void main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized();
-
-  await MobileAds.instance
-      .initialize();
-
-  runApp(
-    const AudioPlusApp(),
-  );
-}
-if (!user.isPremium)
-  AdWidget(
-    ad: bannerAd,
-  );
-  ElevatedButton(
-  onPressed: () {
-    FlutterEqualizer.open(
-      sessionId,
-    );
-  },
-  child:
-      const Text(
-    "Equalizer",
-  ),
-)
-MaterialApp(
-  debugShowCheckedModeBanner:
-      false,
-  theme:
-      AppTheme.light,
-  darkTheme:
-      AppTheme.dark,
-  themeMode:
-      ThemeMode.system,
-);
-final picked =
-    await ImagePicker()
-        .pickImage(
-  source:
-      ImageSource.gallery,
-);
-
-if (picked != null) {
-  File image =
-      File(picked.path);
-}
-final imageUrl =
-    await UploadService()
-        .uploadImage(
-  image,
-  'profile.jpg',
-);
-await ProfileService()
-    .updateProfile(
-  uid: user.uid,
-  name: name,
-  bio: bio,
-  image: imageUrl,
-);
-await FirebaseFirestore
-    .instance
-    .collection('users')
-    .doc(targetUserId)
-    .update({
-  'followers':
-      FieldValue.increment(1),
-});
-await FirebaseFirestore
-    .instance
-    .collection('users')
-    .doc(targetUserId)
-    .update({
-  'followers':
-      FieldValue.increment(-1),
-});
-match /users/{userId} {
-  allow read: if true;
-
-  allow write:
-  if request.auth != null;
-}
-match /notifications/{notificationId} {
-  allow read, write:
-  if request.auth != null;
-}
 }
